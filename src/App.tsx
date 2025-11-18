@@ -1,31 +1,36 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
 import Footer from './components/Footer/Footer';
+import Admin from './components/Admin/Admin';
+import Gallery from './components/Gallery/Gallery';
+import About from './components/About/About';
+import { AdminAuthProvider } from './contexts/AdminAuthContext';
 import { NavItem, Feature, HeroSection } from './types';
 
 const App: React.FC = () => {
   // Navigation data
   const navItems: NavItem[] = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
+    { label: 'Domů', href: '#home' },
+    { label: 'O nás', href: '#about' },
+    { label: 'Služby', href: '#services' },
     { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Reviews', href: '#reviews' },
+    { label: 'Recenze', href: '#reviews' },
   ];
 
   // Hero section data
   const heroData: HeroSection = {
-    subtitle: 'Welcome to Luxury',
-    title: 'Luxury Nail Artistry',
-    description: 'Transform your nails into works of art. Professional manicure, gel polish, extensions, and custom nail art in a luxurious setting.',
+    subtitle: 'Vítejte v luxusu',
+    title: 'Luxusní nehtové umění',
+    description: 'Proměňte své nehty v umělecká díla. Profesionální manikúra, gelový lak, prodlužování a vlastní nehtové umění v luxusním prostředí.',
     primaryButton: {
-      text: 'Book Appointment',
+      text: 'Rezervovat termín',
       href: '#book',
     },
     secondaryButton: {
-      text: 'View Portfolio',
+      text: 'Zobrazit portfolio',
       href: '#portfolio',
     },
   };
@@ -33,53 +38,65 @@ const App: React.FC = () => {
   // Services data
   const servicesData: Feature[] = [
     {
-      title: 'Classic Manicure',
-      description: 'Traditional manicure with cuticle care, nail shaping, and premium polish application for a clean, elegant look.',
+      title: 'Klasická manikúra',
+      description: 'Tradiční manikúra s péčí o kutikuly, tvarováním nehtů a aplikací prémiového laku pro čistý, elegantní vzhled.',
       icon: '💅',
     },
     {
-      title: 'Gel Polish',
-      description: 'Long-lasting gel polish application that provides chip-free color for up to 3 weeks with a glossy finish.',
+      title: 'Gelový lak',
+      description: 'Dlouhotrvající aplikace gelového laku, která poskytuje bezodlupkové barvy až po 3 týdny se lesklým povrchem.',
       icon: '✨',
     },
     {
-      title: 'Nail Extensions',
-      description: 'Professional nail extensions using high-quality materials to create the length and shape you desire.',
+      title: 'Prodlužování nehtů',
+      description: 'Profesionální prodlužování nehtů pomocí vysoce kvalitních materiálů pro vytvoření délky a tvaru, který si přejete.',
       icon: '📏',
     },
     {
-      title: 'Custom Nail Art',
-      description: 'Unique, hand-painted designs and artistic creations tailored to your personal style and preferences.',
+      title: 'Vlastní nehtové umění',
+      description: 'Jedinečné, ručně malované designy a umělecká tvorba přizpůsobená vašemu osobnímu stylu a preferencím.',
       icon: '🎨',
     },
     {
-      title: 'Spa Pedicure',
-      description: 'Luxurious foot treatment with exfoliation, massage, and perfect polish application for complete pampering.',
-      icon: '🦶',
+      title: 'Pedicura',
+      description: 'Kompletní péče o nohy včetně ošetření kůže, nehtů a relaxační masáže pro dokonalý vzhled a pohodlí.',
+      icon: '💆‍♀️',
+      status: 'coming-soon',
     },
     {
-      title: 'Nail Repair',
-      description: 'Expert repair services for broken, cracked, or damaged nails to restore their natural beauty.',
+      title: 'Oprava nehtů',
+      description: 'Expertní opravné služby pro zlomené, prasklé nebo poškozené nehty pro obnovení jejich přirozené krásy.',
       icon: '🔧',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Header navItems={navItems} />
-      <main>
-        <Hero data={heroData} />
-        <Features 
-          features={servicesData}
-          title="Our Services"
-          subtitle="Professional nail care and artistry services"
-        />
-      </main>
-      <Footer 
-        companyName="Nail Artistry"
-        companyDescription="Transform your nails into works of art. Professional nail care and custom designs in a luxurious setting."
-      />
-    </div>
+    <Router>
+      <AdminAuthProvider>
+        <Routes>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={
+            <div className="min-h-screen bg-black text-white">
+              <Header navItems={navItems} />
+              <main>
+                <Hero data={heroData} />
+                <About />
+                <Features
+                  features={servicesData}
+                  title="Služby"
+                  subtitle="Profesionální péče o nehty a nehtové umění"
+                />
+                <Gallery />
+              </main>
+              <Footer
+                companyName="Nail Artistry"
+                companyDescription="Proměňte své nehty v umělecká díla. Profesionální péče o nehty a vlastní designy v luxusním prostředí."
+              />
+            </div>
+          } />
+        </Routes>
+      </AdminAuthProvider>
+    </Router>
   );
 };
 
