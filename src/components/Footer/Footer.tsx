@@ -18,15 +18,15 @@ const Footer: React.FC<FooterProps> = ({
   companyName = "Nail Artistry",
   companyDescription = "Transform your nails into works of art. Professional nail care and custom designs in a luxurious setting.",
   socialLinks = [
-    { name: "Instagram", href: "#", icon: "📷" },
-    { name: "Facebook", href: "#", icon: "📘" },
-    { name: "Twitter", href: "#", icon: "🐦" },
+    { name: "Instagram", href: "/", icon: "📷" },
+    { name: "Facebook", href: "/", icon: "📘" },
+    { name: "Twitter", href: "/", icon: "🐦" },
   ],
   quickLinks = [
-    { label: "About Us", href: "#" },
-    { label: "Services", href: "#" },
-    { label: "Portfolio", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "About Us", href: "/" },
+    { label: "Services", href: "/" },
+    { label: "Portfolio", href: "/" },
+    { label: "Contact", href: "/" },
   ],
 }) => {
   return (
@@ -108,10 +108,10 @@ const Footer: React.FC<FooterProps> = ({
               © {new Date().getFullYear()} {companyName}. Všechna práva vyhrazena.
             </p>
             <div className="flex space-x-8">
-              <a href="#" className="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-200">
+              <a href="/" className="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-200">
                 Ochrana soukromí
               </a>
-              <a href="#" className="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-200">
+              <a href="/" className="text-gray-500 hover:text-primary-400 text-sm transition-colors duration-200">
                 Obchodní podmínky
               </a>
             </div>
