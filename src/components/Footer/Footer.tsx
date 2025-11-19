@@ -34,8 +34,8 @@ const Footer: React.FC<FooterProps> = ({
       {/* Background decorative glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-64 bg-primary-400/5 blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-3xl font-bold mb-6 text-white font-serif">

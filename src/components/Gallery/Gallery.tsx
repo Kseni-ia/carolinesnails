@@ -11,7 +11,7 @@ const Gallery: React.FC = () => {
     ];
 
     return (
-        <section id="portfolio" className="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg relative overflow-hidden">
+        <section id="portfolio" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg relative overflow-hidden">
             {/* Background decorative elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-400/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />

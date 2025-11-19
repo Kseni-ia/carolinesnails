@@ -7,13 +7,20 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="home" className="relative h-[100svh] flex items-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-20 md:pt-0">
       {/* Background Image with Smart Overlay */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile Background */}
+        <img
+          src="/IMG_3777.png"
+          alt="Nail Artistry Background"
+          className="w-full h-full object-cover md:hidden"
+        />
+        {/* Desktop Background */}
         <img
           src="/test1.jpg"
           alt="Nail Artistry Background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover hidden md:block"
         />
         {/* Heavy gradient from left to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
@@ -23,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
 
       {/* Content - Aligned Left */}
       <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="text-left space-y-8">
+        <div className="text-left space-y-6 md:space-y-8">
           {/* Decorative Line */}
           <div className="w-20 h-1 bg-primary-400 rounded-full animate-[width_1s_ease-out]" />
 
@@ -33,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           </p>
 
           {/* Main Title - Using Text instead of Image for cleanliness */}
-          <h1 className="text-5xl md:text-7xl font-bold text-white font-serif leading-tight animate-[fadeIn_1s_ease-out_0.3s_both]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white font-serif leading-tight animate-[fadeIn_1s_ease-out_0.3s_both]">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
               Caroline's
             </span>

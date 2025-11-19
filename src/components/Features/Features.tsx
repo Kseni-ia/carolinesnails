@@ -13,7 +13,7 @@ const Features: React.FC<FeaturesProps> = ({
   subtitle = "Professional nail care and artistry services"
 }) => {
   return (
-    <section id="services" className="py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
+    <section id="services" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-black relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute top-1/4 left-0 w-full h-1/2 bg-gradient-radial from-primary-900/10 to-transparent opacity-30 pointer-events-none" />
 
