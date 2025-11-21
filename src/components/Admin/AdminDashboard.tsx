@@ -39,7 +39,7 @@ const AdminDashboard: React.FC = () => {
                 { title: 'Nové recenze', desc: 'Nepřečtené recenze', icon: '⭐', count: '2' },
                 { title: 'Portfolio', desc: 'Fotografií v galerii', icon: '🖼️', count: '24' },
               ].map((item, index) => (
-                <div key={index} className="group bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(212,175,55,0.1)] cursor-pointer">
+                <div key={index} className="group bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-gold-light cursor-pointer">
                   <div className="flex justify-between items-start mb-4">
                     <div className="w-12 h-12 rounded-xl bg-black/50 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300 border border-white/5 group-hover:border-primary-400/30">
                       {item.icon}
@@ -117,7 +117,7 @@ const AdminDashboard: React.FC = () => {
         <img
           src="/final.svg"
           alt="Nail Artistry Logo"
-          className="h-12 w-auto drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]"
+          className="h-12 w-auto drop-shadow-gold"
         />
       </div>
 

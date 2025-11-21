@@ -21,7 +21,7 @@ const BookingSection: React.FC = () => {
 
                     <button
                         onClick={() => setIsBookingOpen(true)}
-                        className="btn-primary text-lg px-8 py-3 shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] transform hover:-translate-y-1 transition-all duration-300"
+                        className="btn-primary text-lg px-8 py-3 shadow-gold hover:shadow-gold-hover transform hover:-translate-y-1 transition-all duration-300"
                     >
                         Rezervovat termín
                     </button>

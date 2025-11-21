@@ -62,7 +62,7 @@ const AdminNavigation: React.FC<AdminNavigationProps> = ({
                 key={item.id}
                 onClick={() => onItemSelect(item.id)}
                 className={`w-full h-12 flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} ${!isExpanded ? 'text-center' : ''} rounded-xl transition-all duration-300 group relative overflow-hidden ${activeItem === item.id
-                  ? 'bg-primary-400 text-black font-semibold shadow-[0_0_20px_rgba(212,175,55,0.3)]'
+                  ? 'bg-primary-400 text-black font-semibold shadow-gold'
                   : 'text-gray-400 hover:text-white hover:bg-white/10'
                   }`}
                 title={item.label}
@@ -110,7 +110,7 @@ const AdminNavigation: React.FC<AdminNavigationProps> = ({
               key={item.id}
               onClick={() => handleMobileItemSelect(item.id)}
               className={`flex flex-col items-center justify-center w-12 h-12 rounded-xl transition-all duration-300 ${activeItem === item.id
-                ? 'bg-primary-400 text-black shadow-[0_0_15px_rgba(212,175,55,0.3)]'
+                ? 'bg-primary-400 text-black shadow-gold-sm'
                 : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
             >

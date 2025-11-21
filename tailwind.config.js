@@ -7,16 +7,16 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#fbf7e3',
-          100: '#f5ebc2',
-          200: '#ebd68f',
-          300: '#e0c05e',
-          400: '#d4af37', // Metallic Gold
-          500: '#b8962e',
-          600: '#997b26',
-          700: '#7a6120',
-          800: '#5e4b1b',
-          900: '#453716',
+          50: '#fbf9f0',
+          100: '#f5f0db',
+          200: '#ebe2bf',
+          300: '#e0d4a3',
+          400: '#c2b280', // Ecru / Muted Gold
+          500: '#a39466',
+          600: '#857850',
+          700: '#665c3d',
+          800: '#47402a',
+          900: '#292518',
         },
         dark: {
           bg: '#050505', // Deeper black
@@ -31,6 +31,15 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      boxShadow: {
+        'gold': '0 0 20px rgba(194, 178, 128, 0.3)',
+        'gold-hover': '0 0 30px rgba(194, 178, 128, 0.5)',
+        'gold-sm': '0 0 15px rgba(194, 178, 128, 0.4)',
+        'gold-light': '0 0 20px rgba(194, 178, 128, 0.1)',
+      },
+      dropShadow: {
+        'gold': '0 0 10px rgba(194, 178, 128, 0.3)',
       },
       keyframes: {
         fadeIn: {

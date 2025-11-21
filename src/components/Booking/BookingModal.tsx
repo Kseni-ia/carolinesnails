@@ -187,7 +187,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
                         key={day.toString()}
                         className={`relative h-10 w-10 mx-auto flex items-center justify-center rounded-full cursor-pointer transition-all duration-200 
               ${isDisabled ? 'text-gray-700 cursor-not-allowed' : 'text-white hover:bg-white/10'}
-              ${isSelected ? 'bg-primary-400 text-black font-bold shadow-[0_0_15px_rgba(212,175,55,0.4)]' : ''}
+              ${isSelected ? 'bg-primary-400 text-black font-bold shadow-gold-sm' : ''}
             `}
                         onClick={() => !isDisabled && handleDateClick(cloneDay)}
                     >

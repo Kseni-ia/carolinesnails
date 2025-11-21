@@ -42,7 +42,7 @@ const AdminLogin: React.FC = () => {
           <img
             src="/final.svg"
             alt="Nail Artistry Logo"
-            className="h-16 w-auto mx-auto mb-6 drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]"
+            className="h-16 w-auto mx-auto mb-6 drop-shadow-gold"
           />
           <h1 className="text-3xl font-bold text-white font-serif">Admin Přihlášení</h1>
           <p className="text-gray-400 mt-2 font-light">Vítejte zpět, prosím přihlašte se</p>

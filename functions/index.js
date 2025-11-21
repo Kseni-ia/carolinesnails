@@ -41,7 +41,7 @@ exports.checkAvailability = functions.https.onCall(async (data, context) => {
         return response.data.items;
     } catch (error) {
         console.error('Error fetching calendar events:', error);
-        throw new functions.https.HttpsError('internal', 'Failed to fetch availability');
+        throw new functions.https.HttpsError('internal', `Failed to fetch availability: ${error.message}`);
     }
 });
 
