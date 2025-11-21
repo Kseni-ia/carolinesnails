@@ -132,9 +132,9 @@ const AdminDashboard: React.FC = () => {
       />
 
       {/* Main content - Full width */}
-      <div className="min-h-screen pl-36 transition-all duration-300 ease-in-out">
+      <div className="min-h-screen md:pl-36 pl-0 pb-24 md:pb-0 transition-all duration-300 ease-in-out">
         {/* Content */}
-        <main className="p-8 pt-24 max-w-7xl mx-auto relative z-10">
+        <main className="p-4 md:p-8 pt-24 max-w-7xl mx-auto relative z-10">
           {renderContent()}
         </main>
       </div>

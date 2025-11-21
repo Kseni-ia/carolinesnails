@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HeroSection } from '../../types';
+import BookingModal from '../Booking/BookingModal';
 
 interface HeroProps {
   data: HeroSection;
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
   return (
     <section id="home" className="relative h-[100svh] flex items-center px-4 sm:px-6 lg:px-8 overflow-hidden pt-20 md:pt-0">
       {/* Background Image with Smart Overlay */}
@@ -56,12 +59,12 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
 
           {/* Button Group */}
           <div className="flex flex-col sm:flex-row gap-6 pt-4 animate-[fadeIn_1s_ease-out_0.9s_both]">
-            <a
-              href={data.primaryButton.href}
+            <button
+              onClick={() => setIsBookingOpen(true)}
               className="btn-primary text-lg min-w-[180px] text-center"
             >
               {data.primaryButton.text}
-            </a>
+            </button>
             <a
               href={data.secondaryButton.href}
               className="btn-secondary text-lg min-w-[180px] text-center"
@@ -84,6 +87,11 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
+
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+      />
     </section>
   );
 };

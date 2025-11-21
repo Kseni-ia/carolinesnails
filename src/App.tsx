@@ -7,6 +7,7 @@ import Footer from './components/Footer/Footer';
 import Admin from './components/Admin/Admin';
 import Gallery from './components/Gallery/Gallery';
 import About from './components/About/About';
+import BookingSection from './components/Booking/BookingSection';
 import { AdminAuthProvider } from './contexts/AdminAuthContext';
 import { NavItem, Feature, HeroSection } from './types';
 
@@ -87,6 +88,7 @@ const App: React.FC = () => {
                   subtitle="Profesionální péče o nehty a nehtové umění"
                 />
                 <Gallery />
+                <BookingSection />
               </main>
               <Footer
                 companyName="Nail Artistry"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavItem } from '../../types';
+import BookingModal from '../Booking/BookingModal';
 
 interface HeaderProps {
   navItems: NavItem[];
@@ -8,6 +9,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ navItems, logo = "Nail Artistry" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black border-b border-white/5">
@@ -40,12 +42,12 @@ const Header: React.FC<HeaderProps> = ({ navItems, logo = "Nail Artistry" }) => 
 
           {/* Book Now Button - Right */}
           <div className="hidden md:block flex-shrink-0">
-            <a
-              href="#book"
+            <button
+              onClick={() => setIsBookingOpen(true)}
               className="btn-primary text-sm px-6 py-2"
             >
               Rezervovat
-            </a>
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -124,19 +126,26 @@ const Header: React.FC<HeaderProps> = ({ navItems, logo = "Nail Artistry" }) => 
                   </div>
                 ))}
                 <div className={`pt-6 transform transition-all duration-500 delay-500 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                  <a
-                    href="#book"
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setIsBookingOpen(true);
+                    }}
                     className="btn-primary text-base px-8 py-2 shadow-lg shadow-primary-400/20"
-                    onClick={() => setIsMenuOpen(false)}
                   >
                     Rezervovat
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </nav>
+
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+      />
     </header>
   );
 };
