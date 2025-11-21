@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ navItems, logo = "Nail Artistry" }) => 
             <img
               src="/final.svg"
               alt="Nail Artistry Logo"
-              className="h-16 md:h-20 w-auto p-2 transition-transform duration-300 hover:scale-105"
+              className="h-24 md:h-32 w-auto p-2 transition-transform duration-300 hover:scale-105"
             />
           </div>
 

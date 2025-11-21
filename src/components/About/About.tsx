@@ -39,7 +39,7 @@ const About: React.FC = () => {
                         </h2>
                         <div className="space-y-4 md:space-y-6 text-base md:text-lg text-gray-400 font-light leading-relaxed">
                             <p className={`transition-all duration-1000 delay-300 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                                Vítejte v mém světě nehtového designu. Jmenuji se Caroline a nehty nejsou jen mou prací, ale mou největší vášní. Specializuji se na detailní nail art, precizní manikúru a zdraví vašich nehtů.
+                                Vítejte v mém světě nehtového designu. Jmenuji se Karoline a nehty nejsou jen mou prací, ale mou největší vášní. Specializuji se na detailní nail art, precizní manikúru a zdraví vašich nehtů.
                             </p>
                             <p className={`transition-all duration-1000 delay-500 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                                 S více než 5 lety zkušeností a neustálým vzděláváním v nejnovějších trendech vám přináším služby, které kombinují luxus, relaxaci a dokonalý výsledek. Každá návštěva je pro mě příležitostí vytvořit něco jedinečného, co podtrhne vaši osobnost.

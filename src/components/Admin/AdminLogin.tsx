@@ -42,7 +42,7 @@ const AdminLogin: React.FC = () => {
           <img
             src="/final.svg"
             alt="Nail Artistry Logo"
-            className="h-16 w-auto mx-auto mb-6 drop-shadow-gold"
+            className="h-32 w-auto mx-auto drop-shadow-gold"
           />
           <h1 className="text-3xl font-bold text-white font-serif">Admin Přihlášení</h1>
           <p className="text-gray-400 mt-2 font-light">Vítejte zpět, prosím přihlašte se</p>
@@ -50,7 +50,7 @@ const AdminLogin: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="password" className="block text-sm font-medium mb-2 text-gray-300 uppercase tracking-wider text-xs">
+            <label htmlFor="password" className="block text-xs font-medium mb-2 text-gray-300 uppercase tracking-wider">
               Heslo
             </label>
             <input

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
 import PasswordChange from './PasswordChange';
 import AdminNavigation from './AdminNavigation';
+import ReservationCalendar from './ReservationCalendar';
 
 interface MenuItem {
   id: string;
@@ -27,9 +28,9 @@ const AdminDashboard: React.FC = () => {
       case 'home':
         return (
           <div className="space-y-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-3xl font-bold text-white font-serif">Vítejte zpět, Caroline</h2>
-              <div className="text-gray-400 text-sm">{new Date().toLocaleDateString('cs-CZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+              <h2 className="text-3xl font-bold text-white font-serif hidden sm:block">Vítejte zpět, Caroline</h2>
+              <div className="text-gray-400 text-sm sm:ml-auto absolute right-4 top-8 sm:relative sm:top-0 sm:right-0">{new Date().toLocaleDateString('cs-CZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -71,12 +72,7 @@ const AdminDashboard: React.FC = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-white font-serif">Kalendář</h2>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl min-h-[400px] flex items-center justify-center text-gray-400">
-              <div className="text-center">
-                <span className="text-4xl mb-4 block">📅</span>
-                <p>Kalendář rezervací a plánování</p>
-              </div>
-            </div>
+            <ReservationCalendar />
           </div>
         );
       case 'portfolio':
@@ -113,13 +109,11 @@ const AdminDashboard: React.FC = () => {
       <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-primary-400/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
 
       {/* Logo in top left corner */}
-      <div className="fixed left-8 top-8 z-40">
-        <img
-          src="/final.svg"
-          alt="Nail Artistry Logo"
-          className="h-12 w-auto drop-shadow-gold"
-        />
-      </div>
+      <img
+        src="/final.svg"
+        alt="Nail Artistry Logo"
+        className="absolute left-3 -top-3 z-40 h-32 w-auto drop-shadow-gold"
+      />
 
       {/* Expanding Sidebar */}
       <AdminNavigation

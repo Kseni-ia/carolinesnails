@@ -53,7 +53,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           </h1>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-gray-300 max-w-xl leading-relaxed font-light tracking-wide animate-[fadeIn_1s_ease-out_0.6s_both]">
+          <p className="text-lg md:text-xl text-gray-300 max-w-xl leading-relaxed font-light tracking-wide animate-[fadeIn_1s_ease-out_0.6s_both] playfair-display">
             {data.description}
           </p>
 

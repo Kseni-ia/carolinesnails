@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { format, addDays, startOfMonth, endOfMonth, startOfWeek, endOfWeek, isSameMonth, isSameDay, addMonths, subMonths, setHours, setMinutes, isBefore, startOfDay, addMinutes, areIntervalsOverlapping, parseISO } from 'date-fns';
 import { cs } from 'date-fns/locale';
 import { httpsCallable } from 'firebase/functions';
-import { functions } from '../../firebase/config';
+import { functions, db } from '../../firebase/config';
+import { collection, addDoc } from 'firebase/firestore';
 
 interface BookingModalProps {
     isOpen: boolean;
@@ -21,6 +22,16 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
     const [clientPhone, setClientPhone] = useState('');
     const [clientEmail, setClientEmail] = useState('');
 
+    const resetForm = () => {
+        setStep('date');
+        setSelectedDate(null);
+        setSelectedTime(null);
+        setClientName('');
+        setClientPhone('');
+        setClientEmail('');
+        setAvailableSlots([]);
+    };
+
     // useEffect(() => {
     //     initClient().catch(console.error);
     // }, []);
@@ -33,10 +44,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
 
     const fetchAvailableSlots = async (date: Date) => {
         setLoading(true);
-        // Define working hours (e.g., 9:00 to 17:00)
+        // Define working hours (9:00 to 18:00)
         const workStartHour = 9;
-        const workEndHour = 17;
+        const workEndHour = 18;
         const slotDuration = 60; // minutes
+        const serviceDuration = 240; // 4 hours service in minutes
+        const bufferDuration = 60; // 1 hour buffer in minutes
 
         // Get busy events from Google Calendar
         const start = setHours(setMinutes(date, 0), workStartHour);
@@ -50,7 +63,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
             });
             const busyEvents = (result.data as any[]) || [];
 
-            // Generate slots
+            // Generate all hourly slots first
             const slots: string[] = [];
             let currentSlot = start;
 
@@ -58,15 +71,28 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
                 const slotStart = currentSlot;
                 const slotEnd = addMinutes(slotStart, slotDuration);
 
-                // Check if this slot overlaps with any busy event
+                // Check if this slot is available considering bidirectional blocking
                 const isBusy = busyEvents.some((event: any) => {
                     const eventStart = parseISO(event.start.dateTime || event.start.date);
                     const eventEnd = parseISO(event.end.dateTime || event.end.date);
 
-                    return areIntervalsOverlapping(
+                    // Check if current slot overlaps with existing event
+                    const directOverlap = areIntervalsOverlapping(
                         { start: slotStart, end: slotEnd },
                         { start: eventStart, end: eventEnd }
                     );
+
+                    // Check if current slot is within 5 hours before any existing booking
+                    const slotIsBeforeEvent = slotEnd <= eventStart;
+                    const hoursBeforeEvent = (eventStart.getTime() - slotEnd.getTime()) / (1000 * 60 * 60);
+                    const withinBlockingWindowBefore = slotIsBeforeEvent && hoursBeforeEvent < 5;
+
+                    // Check if current slot is within 1 hour after any existing booking (buffer time only)
+                    const slotIsAfterEvent = slotStart >= eventEnd;
+                    const hoursAfterEvent = (slotStart.getTime() - eventEnd.getTime()) / (1000 * 60 * 60);
+                    const withinBlockingWindowAfter = slotIsAfterEvent && hoursAfterEvent < 1;
+
+                    return directOverlap || withinBlockingWindowBefore || withinBlockingWindowAfter;
                 });
 
                 if (!isBusy) {
@@ -105,17 +131,39 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
         if (!selectedDate || !selectedTime) return;
 
         const [hours, minutes] = selectedTime.split(':').map(Number);
-        const startDateTime = setHours(setMinutes(selectedDate, minutes), hours);
-        const endDateTime = setHours(setMinutes(selectedDate, minutes + 60), hours + 1); // 1 hour duration
+        const serviceDuration = 240; // 4 hours service in minutes
+        const bufferDuration = 60; // 1 hour buffer in minutes
+
+        // The actual service starts at the selected time and lasts for serviceDuration
+        const serviceStartDateTime = setHours(setMinutes(selectedDate, minutes), hours);
+        const serviceEndDateTime = addMinutes(serviceStartDateTime, serviceDuration);
 
         const eventDetails = {
             summary: `Rezervace: ${serviceName} - ${clientName}`,
-            description: `Klient: ${clientName}\nTel: ${clientPhone}\nEmail: ${clientEmail}`,
-            start: startDateTime,
-            end: endDateTime,
+            description: `Klient: ${clientName}\nTel: ${clientPhone}\nEmail: ${clientEmail}\n\nRezervace na ${selectedTime}. Služba trvá ${serviceDuration / 60} hodiny.`,
+            start: serviceStartDateTime,
+            end: serviceEndDateTime,
         };
 
         try {
+            // Save to Firestore first
+            const reservationData = {
+                clientName,
+                clientPhone,
+                clientEmail,
+                serviceName,
+                serviceStartDateTime: serviceStartDateTime.toISOString(),
+                serviceEndDateTime: serviceEndDateTime.toISOString(),
+                selectedTime,
+                selectedDate: selectedDate.toISOString(),
+                createdAt: new Date().toISOString(),
+                status: 'confirmed'
+            };
+
+            const docRef = await addDoc(collection(db, 'reservations'), reservationData);
+            console.log('Reservation saved with ID:', docRef.id);
+
+            // Then create Google Calendar event
             const createBookingFn = httpsCallable(functions, 'createBooking');
             await createBookingFn({
                 summary: eventDetails.summary,
@@ -209,11 +257,23 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl w-full max-w-md overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] relative">
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => {
+                resetForm();
+                onClose();
+            }}
+        >
+            <div 
+                className="bg-[#0a0a0a] border border-white/10 rounded-3xl w-full max-w-md overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] relative"
+                onClick={(e) => e.stopPropagation()}
+            >
                 {/* Close Button */}
                 <button
-                    onClick={onClose}
+                    onClick={() => {
+                        resetForm();
+                        onClose();
+                    }}
                     className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -322,9 +382,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, serviceNam
                                 </svg>
                             </div>
                             <h3 className="text-2xl font-serif font-bold text-white mb-2">Rezervace potvrzena!</h3>
-                            <p className="text-gray-400 mb-6">Potvrzení vám přijde na email.</p>
+                            <p className="text-gray-400 mb-6">Master received your reservation and will contact you soon.</p>
                             <button
-                                onClick={onClose}
+                                onClick={() => {
+                                    resetForm();
+                                    onClose();
+                                }}
                                 className="bg-white/10 text-white px-6 py-2 rounded-xl hover:bg-white/20 transition-colors"
                             >
                                 Zavřít

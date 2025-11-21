@@ -25,7 +25,7 @@ const App: React.FC = () => {
   const heroData: HeroSection = {
     subtitle: 'Vítejte v luxusu',
     title: 'Luxusní nehtové umění',
-    description: 'Proměňte své nehty v umělecká díla. Profesionální manikúra, gelový lak, prodlužování a vlastní nehtové umění v luxusním prostředí.',
+    description: 'Proměňte své ruce v umělecká díla. Profesionální manikúra, modeláž a design s přijemnou atmosferou. Dopřejte zasloužený odpočinek sobě a profesionalní péči svým rukám.',
     primaryButton: {
       text: 'Rezervovat termín',
       href: '#book',
@@ -92,7 +92,9 @@ const App: React.FC = () => {
               </main>
               <Footer
                 companyName="Nail Artistry"
-                companyDescription="Proměňte své nehty v umělecká díla. Profesionální péče o nehty a vlastní designy v luxusním prostředí."
+                companyDescription="Proměňte své ruce v umělecká díla. Profesionální manikúra, modeláž a design s přijemnou atmosferou. Dopřejte zasloužený odpočinek sobě a profesionalní péči svým rukám.
+
+"
               />
             </div>
           } />

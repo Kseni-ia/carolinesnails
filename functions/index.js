@@ -21,7 +21,7 @@ const jwtClient = new google.auth.JWT(
 
 // Your Calendar ID (email address of the calendar you want to book on)
 // You can also move this to environment variables later
-const CALENDAR_ID = 'sergeevnakseniia9@gmail.com';
+const CALENDAR_ID = '9ba57b7bdf1829e3c25117f14c8eab2bab88974cf88ad7fcffaf7629ee576309@group.calendar.google.com';
 
 exports.checkAvailability = functions.https.onCall(async (data, context) => {
     const { timeMin, timeMax } = data;
